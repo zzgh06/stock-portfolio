@@ -1,13 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import prisma from '@/lib/prisma';
 
 export async function GET() {
+  const session = await getServerSession();
+
+  if (!session?.user) {
+    return NextResponse.json({ error: '승인되지 않은 요청입니다.' }, { status: 401 });
+  }
+
   try {
     const portfolios = await prisma.portfolio.findMany({
-      include: {
-        stocks: true,
+      where: {
+        userId: session.user.id
       },
+      include: {
+        stocks: true
+      }
     });
 
     return NextResponse.json(portfolios);
@@ -20,10 +30,19 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const session = await getServerSession();
+
+  if (!session?.user) {
+    return NextResponse.json({ error: '승인되지 않은 요청입니다.' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const portfolio = await prisma.portfolio.create({
-      data: body,
+      data: {
+        ...body,
+        userId: session.user.id
+      }
     });
 
     return NextResponse.json(portfolio);
