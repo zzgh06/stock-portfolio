@@ -1,5 +1,9 @@
+import PortfolioList from "@/components/portfolio/PortfolioList";
+
 export default function PortfolioPage(){
   return (
-    <div>PortfolioPage</div>
+    <div>
+      <PortfolioList />
+    </div>
   )
 }
