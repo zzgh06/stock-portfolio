@@ -14,10 +14,13 @@ datasource db {
 }
 
 model User {
-  id        String      @id @default(cuid())
-  email     String      @unique
-  name      String?
-  portfolios Portfolio[]
+  id             String      @id @default(cuid())
+  email          String      @unique
+  name           String?
+  hashedPassword String?
+  portfolios     Portfolio[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model Portfolio {
