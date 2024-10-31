@@ -9,7 +9,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="kr" className="min-h-screen mx-auto">
       <body>
         <div className="min-h-screen bg-gray-100">
           <Header />
