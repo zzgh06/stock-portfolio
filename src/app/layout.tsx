@@ -1,6 +1,7 @@
 import Header from "@/components/shared/Header";
 import Sidebar from "@/components/shared/Sidebar";
 import "./globals.css";
+import Providers from "./providers";
 
 
 export default function RootLayout({
@@ -12,11 +13,13 @@ export default function RootLayout({
     <html lang="kr" className="min-h-screen mx-auto">
       <body>
         <div className="min-h-screen bg-gray-100">
-          <Header />
-          <div className="flex">
-            <Sidebar />
-            <main className="flex-1 p-6">{children}</main>
-          </div>
+          <Providers>
+            <Header />
+            <div className="flex">
+              <Sidebar />
+              <main className="flex-1 p-6">{children}</main>
+            </div>
+          </Providers>
         </div>
       </body>
     </html>
